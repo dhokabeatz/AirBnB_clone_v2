@@ -1,8 +1,40 @@
 <center> <h1>HBNB - The Console</h1> </center>
 
-This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
+This repository is a student project aimed at creating a clone of the AirBnB website. The project includes a backend console that allows users to manage program data using various commands.
 
 ---
+
+## Installation
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/dhokabeatz/AirBnB_clone_v2.git
+   cd AirBnB_clone_v2
+   ```
+
+2. Install dependencies:
+   ```bash
+   # pip install -r requirements.txt
+   ```
+
+## Configuration
+To configure the project, set the following environment variables:
+- `HBNB_ENV`: Running environment (dev or test)
+- `HBNB_MYSQL_USER`: MySQL username
+- `HBNB_MYSQL_PWD`: MySQL password
+- `HBNB_MYSQL_HOST`: MySQL hostname
+- `HBNB_MYSQL_DB`: MySQL database name
+- `HBNB_TYPE_STORAGE`: Type of storage used (file or db)
+
+## Database Setup
+1. Create a MySQL database and user.
+2. Grant privileges to the user for the database and flush the changes.
+
+## Testing
+Run unit tests using the following command:
+```bash
+python3 -m unittest discover tests
+```
+
 
 <center><h3>Repository Contents by Project Task</h3> </center>
 

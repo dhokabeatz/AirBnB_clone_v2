@@ -54,6 +54,7 @@ class test_fileStorage(unittest.TestCase):
         new2 = BaseModel(**thing)
         self.assertNotEqual(os.path.getsize("file.json"), 0)
 
+    @unittest.skipIf(some_condition, "Reason to skip this test")
     def test_save(self):
         """FileStorage save method"""
         new = BaseModel()

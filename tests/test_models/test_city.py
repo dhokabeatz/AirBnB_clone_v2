@@ -1,11 +1,9 @@
 #!/usr/bin/python3
 """ """
-import unittest
 from tests.test_models.test_base_model import test_basemodel
 from models.city import City
-from models import storage
 
-@unittest.skipIf(storage._FileStorage__objects is not None, "Not using FileStorage")
+
 class test_City(test_basemodel):
     """ """
 

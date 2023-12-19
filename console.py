@@ -129,7 +129,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        parts = args.split(' ')
+        parts = args.split(" ")
         class_name = parts[0]
 
         if class_name not in HBNBCommand.classes:
@@ -139,14 +139,15 @@ class HBNBCommand(cmd.Cmd):
         # Extract parameters and create a dictionary
         param_dict = {}
         for param in parts[1:]:
-            key, value = param.split('=')
-            param_dict[key] = value.replace('_', ' ')
+            key, value = param.split("=")
+            param_dict[key] = value.replace("_", " ")
 
         # Create an instance of the specified class with given parameters
         new_instance = HBNBCommand.classes[class_name](**param_dict)
         storage.save()
         print(new_instance.id)
         storage.save()
+
     def help_create(self):
         """Help information for the create method"""
         print("Creates a class of any type")

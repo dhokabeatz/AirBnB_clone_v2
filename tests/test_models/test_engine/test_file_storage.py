@@ -3,7 +3,10 @@ import os
 from models.base_model import BaseModel
 from models import storage
 
-@unittest.skipIf(os.environ.get('HBNB_TYPE_STORAGE') != 'file', 'Test only relevant for file storage')
+
+@unittest.skipIf(
+    os.environ.get("HBNB_TYPE_STORAGE") != "file", "Test only for file storage"
+)
 class TestFileStorage(unittest.TestCase):
     """Class to test the file storage method"""
 
@@ -19,7 +22,7 @@ class TestFileStorage(unittest.TestCase):
         """Remove storage file at the end of tests"""
         try:
             os.remove("file.json")
-        except:
+        except FileNotFoundError:
             pass
 
     def test_obj_list_empty(self):
@@ -44,7 +47,9 @@ class TestFileStorage(unittest.TestCase):
         new = BaseModel()
         self.assertFalse(os.path.exists("file.json"))
 
-    @unittest.skipIf(os.environ.get('HBNB_TYPE_STORAGE') == 'db', 'Test not relevant for db storage')
+    @unittest.skipIf(
+        os.environ.get("HBNB_TYPE_STORAGE") == "db", "Test not for db storage"
+    )
     def test_empty(self):
         """Data is saved to file"""
         new = BaseModel()
@@ -53,14 +58,20 @@ class TestFileStorage(unittest.TestCase):
         new2 = BaseModel(**thing)
         self.assertNotEqual(os.path.getsize("file.json"), 0)
 
-    @unittest.skipIf(os.environ.get('HBNB_TYPE_STORAGE') != 'file', 'Test only relevant for file storage')
+    @unittest.skipIf(
+        os.environ.get("HBNB_TYPE_STORAGE") != "file",
+        "Test only relevant for file storage",
+    )
     def test_save(self):
         """FileStorage save method"""
         new = BaseModel()
         storage.save()
         self.assertTrue(os.path.exists("file.json"))
 
-    @unittest.skipIf(os.environ.get('HBNB_TYPE_STORAGE') != 'file', 'Test only relevant for file storage')
+    @unittest.skipIf(
+        os.environ.get("HBNB_TYPE_STORAGE") != "file",
+        "Test only relevant for file storage",
+    )
     def test_reload(self):
         """Storage file is successfully loaded to __objects"""
         new = BaseModel()
@@ -70,7 +81,10 @@ class TestFileStorage(unittest.TestCase):
             loaded = obj
         self.assertEqual(new.to_dict()["id"], loaded.to_dict()["id"])
 
-    @unittest.skipIf(os.environ.get('HBNB_TYPE_STORAGE') != 'file', 'Test only relevant for file storage')
+    @unittest.skipIf(
+        os.environ.get("HBNB_TYPE_STORAGE") != "file",
+        "Test only relevant for file storage",
+    )
     def test_reload_empty(self):
         """Load from an empty file"""
         with open("file.json", "w") as f:
@@ -78,29 +92,44 @@ class TestFileStorage(unittest.TestCase):
         with self.assertRaises(ValueError):
             storage.reload()
 
-    @unittest.skipIf(os.environ.get('HBNB_TYPE_STORAGE') != 'file', 'Test only relevant for file storage')
+    @unittest.skipIf(
+        os.environ.get("HBNB_TYPE_STORAGE") != "file",
+        "Test only relevant for file storage",
+    )
     def test_reload_from_nonexistent(self):
         """Nothing happens if the file does not exist"""
         self.assertEqual(storage.reload(), None)
 
-    @unittest.skipIf(os.environ.get('HBNB_TYPE_STORAGE') != 'file', 'Test only relevant for file storage')
+    @unittest.skipIf(
+        os.environ.get("HBNB_TYPE_STORAGE") != "file",
+        "Test only relevant for file storage",
+    )
     def test_base_model_save(self):
         """BaseModel save method calls storage save"""
         new = BaseModel()
         new.save()
         self.assertTrue(os.path.exists("file.json"))
 
-    @unittest.skipIf(os.environ.get('HBNB_TYPE_STORAGE') != 'file', 'Test only relevant for file storage')
+    @unittest.skipIf(
+        os.environ.get("HBNB_TYPE_STORAGE") != "file",
+        "Test only relevant for file storage",
+    )
     def test_type_path(self):
         """Confirm __file_path is string"""
         self.assertEqual(type(storage._FileStorage__file_path), str)
 
-    @unittest.skipIf(os.environ.get('HBNB_TYPE_STORAGE') != 'file', 'Test only relevant for file storage')
+    @unittest.skipIf(
+        os.environ.get("HBNB_TYPE_STORAGE") != "file",
+        "Test only relevant for file storage",
+    )
     def test_type_objects(self):
         """Confirm __objects is a dict"""
         self.assertEqual(type(storage.all()), dict)
 
-    @unittest.skipIf(os.environ.get('HBNB_TYPE_STORAGE') != 'file', 'Test only relevant for file storage')
+    @unittest.skipIf(
+        os.environ.get("HBNB_TYPE_STORAGE") != "file",
+        "Test only relevant for file storage",
+    )
     def test_key_format(self):
         """Key is properly formatted"""
         new = BaseModel()
@@ -109,11 +138,16 @@ class TestFileStorage(unittest.TestCase):
             temp = key
         self.assertEqual(temp, "BaseModel" + "." + _id)
 
-    @unittest.skipIf(os.environ.get('HBNB_TYPE_STORAGE') != 'file', 'Test only relevant for file storage')
+    @unittest.skipIf(
+        os.environ.get("HBNB_TYPE_STORAGE") != "file",
+        "Test only relevant for file storage",
+    )
     def test_storage_var_created(self):
         """FileStorage object storage created"""
         from models.engine.file_storage import FileStorage
+
         self.assertEqual(type(storage), FileStorage)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

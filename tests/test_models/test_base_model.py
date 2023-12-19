@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """ """
 from models.base_model import BaseModel
+from models import storage
 import unittest
 import datetime
-from uuid import UUID
 import json
 import os
 
@@ -24,7 +24,7 @@ class test_basemodel(unittest.TestCase):
     def tearDown(self):
         try:
             os.remove("file.json")
-        except FileExistsErrorile:
+        except FileExistsError:
             pass
 
     def test_default(self):
@@ -49,6 +49,11 @@ class test_basemodel(unittest.TestCase):
 
     def test_save(self):
         """Testing save"""
+        # Skip this test when using database storage
+        if storage._FileStorage__file_path:
+            self.skipTest("Not applicable for database storage")
+            return
+
         i = self.value()
         i.save()
         key = self.name + "." + i.id

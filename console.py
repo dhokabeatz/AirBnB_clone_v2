@@ -136,30 +136,30 @@ class HBNBCommand(cmd.Cmd):
         elif className not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        
+
         allList = args.split(" ")
         newItem = eval(className)()
 
-        for item in range(1,len(allList)):
+        for item in range(1, len(allList)):
             key, value = tuple(allList[item].split("="))
             if value.startswith('"'):
-                value = value.strip('"').replace("_"," ")
+                value = value.strip('"').replace("_", " ")
             else:
                 try:
                     value = eval(value)
                 except Exception:
                     print("Couldn't evaluate {value}")
                     pass
-            if hasattr(newItem,key):
-                setattr(newItem,key,value)
-            
-        #new_instance = HBNBCommand.classes[args]()
+            if hasattr(newItem, key):
+                setattr(newItem, key, value)
+
+        # new_instance = HBNBCommand.classes[args]()
         storage.new(newItem)
-        #storage.save()
+        # storage.save()
         print(newItem)
         newItem.save()
-        #print(new_instance.id)
-        #storage.save()
+        # print(new_instance.id)
+        # storage.save()
 
     def help_create(self):
         """Help information for the create method"""

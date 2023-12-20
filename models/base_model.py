@@ -33,12 +33,31 @@ class BaseModel:
         self.updated_at = datetime.now()
         storage.save()
 
+    # def to_dict(self):
+    #     """Convert instance into dict format"""
+    #     dictionary = {}
+    #     dictionary.update(self.__dict__)
+    #     dictionary.update({'__class__':
+    #                       (str(type(self)).split('.')[-1]).split('\'')[0]})
+    #     dictionary['created_at'] = self.created_at.isoformat()
+    #     dictionary['updated_at'] = self.updated_at.isoformat()
+    #     return dictionary
+    # def to_dict(self):
+    #     """Convert instance into dict format"""
+    #     dictionary = dict(self.__dict__)
+    #     dictionary['__class__'] = self.__class__.__name__
+    #     dictionary['created_at'] = self.created_at.isoformat()
+    #     dictionary['updated_at'] = self.updated_at.isoformat()
+    #     return dictionary
     def to_dict(self):
         """Convert instance into dict format"""
         dictionary = {}
         dictionary.update(self.__dict__)
         dictionary.update({'__class__':
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
+        if "_sa_instance_state" in dictionary:
+            del dictionary["_sa_instance_state"]
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
         return dictionary
+

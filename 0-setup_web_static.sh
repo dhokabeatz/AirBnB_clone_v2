@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-
+# Script that sets up your web servers for the deployment of web_static
+#
 # Update package list
 sudo apt-get update
 

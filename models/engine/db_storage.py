@@ -42,7 +42,11 @@ class DBStorage:
     def reload(self):
         """Create all tables in the database and create the current database session"""
         ...
-
+    
+    def close(self):
+        """Call remove() method on the private session attribute (self.__session)"""
+        self.__session.remove()
+        
 # Create a DBStorage instance
 storage = DBStorage()
 storage.reload()
